@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #light_panel {
+            display: flex;
+            gap: 10px;
+        }
+
+        section > div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 50px;
+            background: white;
+            border: 1px solid black;
+        }
+
+        #ktit {
+            width: fit-content;
+            position: fixed;
+            margin: auto;
+        }
+
+        #btn_panel {
+            width: fit-content;
+            margin: auto;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+<section id="ktit">
+    <section id="light_panel">
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+    </section>
+
+    <section id="btn_panel">
+        <button id="start">Start</button>
+        <button id="stop">Stop</button>
+    </section>
+</section>
+<script src="./lib/jquery-3.7.1.min.js"></script>
+<script>
+    const light_count = 6;
+    let currant_light = -1;
+    let direction = "RIGHT"; //right or left
+
+        updateLight = () => {
+            if (direction === "RIGHT") {
+                currant_light++;
+                $(".light").css("background", "white");
+                $(".light").eq(currant_light).css("background", "red");
+                $(".light").eq(currant_light-1).css("background", "pink");
+
+                if (currant_light === light_count - 1) {
+                    direction = "LEFT";
+                }
+
+            } else {
+                currant_light--;
+                $(".light").css("background", "white");
+                $(".light").eq(currant_light).css("background", "red");
+                $(".light").eq(currant_light+1).css("background", "pink");
+
+
+                if (currant_light === 0) {
+                    direction = "RIGHT"
+                }
+            }
+        }
+
+    document.getElementById("start").addEventListener("click", function () {
+        interval = setInterval(updateLight, 100)
+    })
+
+    document.getElementById("stop").addEventListener("click", function () {
+        clearInterval(interval)
+    })
+
+
+</script>
+</body>
+</html>
